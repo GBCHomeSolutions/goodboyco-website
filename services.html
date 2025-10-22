@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Good Boy Co. Home Solutions</title>
+  <style>
+    /*
+      Color palette for the site.  These CSS variables mirror those used on the
+      home page to maintain a consistent, festive yet professional look.
+    */
+    :root {
+      --primary-color: #0d254f;     /* Deep navy */
+      --secondary-color: #0b6b50;   /* Evergreen */
+      --highlight-color: #f8d673;   /* Warm gold */
+      --background-light: #ffffff;   /* White */
+      --snow: #f9f9fb;               /* Soft off‑white */
+      --ink: #1f2937;                /* Dark grey for text */
+    }
+
+    /* Basic resets */
+    body, h1, h2, h3, p, ul {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    }
+    body {
+      background: var(--background-light);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Header styling shared across pages */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      /* Match the home page header: dark blue with no blur/border */
+      background: var(--primary-color);
+      backdrop-filter: none;
+      border-bottom: none;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    .logo-image {
+      height: 48px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      /* Use the highlight colour for nav links on dark header */
+      color: var(--highlight-color);
+      transition: color .2s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--secondary-color);
+    }
+    .phone-number {
+      font-weight: 600;
+      color: var(--background-light);
+      margin-right: 1rem;
+      white-space: nowrap;
+    }
+    .cta-button {
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      background: var(--highlight-color);
+      color: var(--primary-color);
+      font-weight: 700;
+      transition: background .2s ease;
+    }
+    .cta-button:hover {
+      background: var(--secondary-color);
+      color: #fff;
+    }
+
+    /* Section: Introduction */
+    .service-intro {
+      padding: 4rem 1rem;
+      background: var(--snow);
+      text-align: center;
+    }
+    .service-intro h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    .service-intro p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
+
+    /* Section: Process flow */
+    .service-process {
+      padding: 4rem 1rem;
+      background: var(--background-light);
+    }
+    .service-process h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+    }
+    .process-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .process-step {
+      background: var(--snow);
+      border: 1px solid rgba(16,42,67,0.1);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      flex: 1 1 220px;
+      max-width: 260px;
+      box-shadow: 0 2px 6px rgba(16,42,67,0.05);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .process-step h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+    .process-step p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    /* Insert arrows between steps on larger screens */
+    .process-arrow {
+      display: none;
+      font-size: 2rem;
+      color: var(--secondary-color);
+      align-self: center;
+    }
+    @media (min-width: 768px) {
+      .process-flow {
+        flex-wrap: nowrap;
+      }
+      .process-step {
+        max-width: none;
+      }
+      .process-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.5rem;
+      }
+    }
+
+    /* Section: Quote call-to-action */
+    .quote-section {
+      padding: 4rem 1rem;
+      background: var(--primary-color);
+      color: var(--background-light);
+      text-align: center;
+    }
+    .quote-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--highlight-color);
+      margin-bottom: 0.5rem;
+    }
+    .quote-section p {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+    .quote-options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    @media (min-width: 640px) {
+      .quote-options {
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
+      }
+    }
+    .quote-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 360px;
+    }
+    .quote-form input {
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      font-size: 1rem;
+    }
+    .quote-form input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    .quote-form button {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 999px;
+      background: var(--secondary-color);
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .quote-form button:hover {
+      background: var(--highlight-color);
+      color: var(--primary-color);
+    }
+    .quote-call {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+    .call-divider {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .call-info {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--highlight-color);
+    }
+    .call-info a {
+      color: var(--highlight-color);
+    }
+    .call-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+      .phone-number {
+        margin: 0.5rem auto;
+        width: 100%;
+        text-align: center;
+      }
+      .cta-button {
+        margin-bottom: 0.5rem;
+      }
+      .process-flow {
+        flex-wrap: wrap;
+      }
+      .process-step {
+        max-width: 100%;
+      }
+      .process-arrow {
+        display: none;
+      }
+      .quote-options {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/Good_Boy_Co_Logo_Blue_BG.png" alt="Good Boy Co. logo" class="logo-image">
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html" class="active">Services/Quotes</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About Us</a>
+      </nav>
+      <!-- Phone number positioned before the call-to-action button -->
+      <div class="phone-number">(346) 870‑9722</div>
+      <a href="services.html#quote" class="cta-button">Get Quote</a>
+    </div>
+  </header>
+
+  <!-- Intro Section -->
+  <section class="service-intro">
+    <h1>Our Services</h1>
+    <p>At Good Boy Co. Home Solutions, we make it simple to light up your home — your way. Whether you want to buy, lease, or just need professional installation, we’ve got you covered with clean, professional service and high-quality lights built to last.</p>
+  </section>
+
+  <!-- Process Flow Section -->
+  <section class="service-process">
+    <h2>Our Process</h2>
+    <div class="process-flow">
+      <!-- Step 1 -->
+      <div class="process-step">
+        <h3>Contact Us</h3>
+        <p>Click “Get a Quote,” enter your name and phone number, and we’ll take it from there.</p>
+      </div>
+      <div class="process-arrow">&#8594;</div>
+      <!-- Step 2 -->
+      <div class="process-step">
+        <h3>Details</h3>
+        <p>We’ll reach out to learn about your needs and help you choose the service that fits best.</p>
+      </div>
+      <div class="process-arrow">&#8594;</div>
+      <!-- Step 3 -->
+      <div class="process-step">
+        <h3>Quote</h3>
+        <p>Receive a free, personalized estimate within 24 hours. No commitment required.</p>
+      </div>
+      <div class="process-arrow">&#8594;</div>
+      <!-- Step 4 -->
+      <div class="process-step">
+        <h3>Install</h3>
+        <p>We’ll schedule a convenient time to professionally install your lights with care and precision.</p>
+      </div>
+      <div class="process-arrow">&#8594;</div>
+      <!-- Step 5 -->
+      <div class="process-step">
+        <h3>Takedown</h3>
+        <p>After the season, we’ll take down your lights and store them safely until next year.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote CTA Section -->
+  <section id="quote" class="quote-section">
+    <h2>Ready to Light Up Your Home?</h2>
+    <p>Get a free and easy quote today.</p>
+    <div class="quote-options">
+      <div class="quote-form">
+        <form action="#" method="post" onsubmit="return false;">
+          <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" required />
+          <input type="tel" name="phone" placeholder="Phone Number" aria-label="Phone Number" required />
+          <button type="submit">Get My Quote</button>
+        </form>
+      </div>
+      <div class="quote-call">
+        <p class="call-divider">or</p>
+        <p class="call-info">Text or call <a href="tel:7209711003">720‑971‑1003</a></p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

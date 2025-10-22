@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Good Boy Co. Home Solutions</title>
+  <style>
+    /* Color palette consistent with the rest of the site */
+    :root {
+      --primary-color: #0d254f;     /* Deep navy */
+      --secondary-color: #0b6b50;   /* Evergreen */
+      --highlight-color: #f8d673;   /* Warm gold */
+      --background-light: #ffffff;   /* White */
+      --snow: #f9f9fb;               /* Soft off‑white */
+      --ink: #1f2937;                /* Dark grey */
+    }
+
+    /* Basic reset */
+    body, h1, h2, h3, p, ul {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    }
+    body {
+      background: var(--background-light);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Header styling */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      /* Match the home page header: use the primary colour and remove blur/border */
+      background: var(--primary-color);
+      backdrop-filter: none;
+      border-bottom: none;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+    .logo-image {
+      height: 48px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-weight: 600;
+      /* Use the highlight colour for nav links on the dark header */
+      color: var(--highlight-color);
+      transition: color .2s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--secondary-color);
+    }
+    .phone-number {
+      font-weight: 600;
+      color: var(--background-light);
+      margin-right: 1rem;
+      white-space: nowrap;
+    }
+    .cta-button {
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      /* Stand out on dark header: highlight background and primary-coloured text */
+      background: var(--highlight-color);
+      color: var(--primary-color);
+      font-weight: 700;
+      transition: background .2s ease;
+    }
+    .cta-button:hover {
+      background: var(--secondary-color);
+      color: #fff;
+    }
+
+    /* Intro section */
+    .about-intro {
+      padding: 4rem 1rem;
+      background: var(--snow);
+      text-align: center;
+    }
+    .about-intro h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      /* Match the site-wide header highlight colour for the About title */
+      color: var(--highlight-color);
+      margin-bottom: 1rem;
+    }
+    .about-intro p {
+      max-width: 900px;
+      margin: 0 auto 1.5rem auto;
+      font-size: 1.125rem;
+      line-height: 1.7;
+    }
+    .about-intro ul {
+      list-style: none;
+      max-width: 640px;
+      margin: 0 auto;
+      padding-left: 0;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .about-intro li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+    .about-intro li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    /* Owners section */
+    .owners-section {
+      padding: 4rem 1rem;
+      background: var(--background-light);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .owners-section h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      /* Use highlight colour for section heading */
+      color: var(--highlight-color);
+      margin-bottom: 3rem;
+    }
+    .owner-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    @media (min-width: 768px) {
+      .owner-block {
+        flex-direction: row;
+      }
+      .owner-block.reverse {
+        flex-direction: row-reverse;
+      }
+    }
+    .owner-text {
+      flex: 1;
+      padding: 0 1rem;
+    }
+    .owner-text h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+    .owner-text p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .owner-text p:last-child {
+      margin-bottom: 0;
+    }
+    .owner-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .owner-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(16,42,67,0.15);
+      object-fit: cover;
+    }
+
+    /* CTA section for About page (optional) */
+    .cta-section {
+      padding: 4rem 1rem;
+      background: var(--primary-color);
+      color: var(--background-light);
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--highlight-color);
+      margin-bottom: 0.5rem;
+    }
+    .cta-section p {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+    .cta-section .cta-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      background: var(--secondary-color);
+      color: #ffffff;
+      font-weight: 700;
+      transition: background 0.2s ease;
+    }
+    .cta-section .cta-button:hover {
+      background: var(--highlight-color);
+      color: var(--primary-color);
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      /* Allow header items to wrap and center on narrow screens */
+      .header-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        flex: 1 1 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+      .phone-number {
+        margin: 0.5rem auto;
+        width: 100%;
+        text-align: center;
+      }
+      .cta-button {
+        margin-bottom: 0.5rem;
+      }
+      /* Stack owner blocks vertically on mobile */
+      .owner-block,
+      .owner-block.reverse {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      .owner-text {
+        padding: 0;
+      }
+      .owner-image {
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="assets/Good_Boy_Co_Logo_Blue_BG.png" alt="Good Boy Co. logo" class="logo-image">
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services/Quotes</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html" class="active">About Us</a>
+      </nav>
+      <!-- Phone number positioned before the call-to-action button -->
+      <div class="phone-number">(346) 870‑9722</div>
+      <a href="services.html#quote" class="cta-button">Get Quote</a>
+    </div>
+  </header>
+
+  <!-- Introductory section -->
+  <section class="about-intro">
+    <h1>Our Story &amp; Values</h1>
+    <p>Good Boy Co. Home Solutions was born from a simple love for Christmas lights and the joy they bring. What started as a college side project for Jake has grown into a local, family‑owned company serving the communities of Texas. Our mission is to spread the joy of Christmas to every neighborhood and build lasting relationships along the way. We pride ourselves on understanding how to help each customer best and we don’t stop until your home shines exactly the way you imagined.</p>
+    <ul>
+      <li>We are a local, family‑owned business.</li>
+      <li>We build relationships and tailor our services to your needs.</li>
+      <li>We spread the joy of Christmas to every neighborhood.</li>
+      <li>We are determined to get the job done right and guarantee satisfaction.</li>
+    </ul>
+  </section>
+
+  <!-- Owners Section -->
+  <section class="owners-section">
+    <h2>Meet the Owners</h2>
+    <!-- Jake & Megan & Tex -->
+    <div class="owner-block">
+      <div class="owner-text">
+        <h3>Jake, Megan &amp; Tex</h3>
+        <p>Jake’s passion for holiday lighting began while he was studying at the Colorado School of Mines. He started a small lighting company in college, delighting his neighborhood with festive displays. After marrying Megan, the couple moved to Texas with their loyal pup Tex and transformed that college project into Good Boy Co. Home Solutions.</p>
+        <p>Today, Jake and Megan bring that same joy and craftsmanship to every project. They believe that great service starts with great relationships. From your first call to the final twinkle of lights, they treat your home as if it were their own—ensuring every detail is perfect and every customer feels like family.</p>
+      </div>
+      <div class="owner-image">
+        <img src="assets/jake.jpg" alt="Jake, Megan and Tex">
+      </div>
+    </div>
+
+    <!-- Caleb & Ben -->
+    <div class="owner-block reverse">
+      <div class="owner-image">
+        <img src="assets/caleb.jpg" alt="Caleb and Ben">
+      </div>
+      <div class="owner-text">
+        <h3>Caleb &amp; Ben</h3>
+        <p>Caleb met Jake at the Colorado School of Mines, where they were both student‑athletes pursuing mechanical engineering degrees. Bonded by a love of design and a relentless work ethic, Caleb joined the Good Boy Co. journey early on.</p>
+        <p>Alongside his dog Ben, Caleb brings precision and energy to every installation. He helped Jake take the company from college dream to professional enterprise, and he now focuses on making each customer’s home look its very best. Together, they’re dedicated to building a service company that puts the customer first—every single time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call-to-Action Section -->
+  <section class="cta-section">
+    <h2>Make Your Home Shine with Us</h2>
+    <p>Ready to transform your home for the holidays? We’d love to hear your vision and bring it to life. Get in touch for a free quote or more information.</p>
+    <a href="services.html#quote" class="cta-button">Get a Free Quote</a>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Good Boy Co. – Home</title>
+  <style>
+    /* Base colours and fonts */
+    :root {
+      /* Warm holiday palette */
+      --primary-color: #0d254f; /* deep navy */
+      --secondary-color: #0b6b50; /* evergreen */
+      --highlight-color: #f8d673; /* warm gold */
+      --light-bg: #f9fafb; /* snowy white */
+      --dark-text: #1f2937; /* dark text */
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+      /* Use a dark body background to match the dark sections so dividers blend nicely */
+      background: #000;
+      /* Default text colour for general elements; specific sections override as needed */
+      color: var(--light-bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header styles */
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      /* Use the primary (navy) colour for the header background */
+      background: var(--primary-color);
+      /* Remove blur on the coloured header */
+      backdrop-filter: none;
+      border-bottom: none;
+      z-index: 1000;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      /* Keep the logo text white on the dark header */
+      color: var(--light-bg);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-weight: 600;
+      /* Use the highlight colour for nav links on the dark header */
+      color: var(--highlight-color);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--secondary-color);
+    }
+
+    .cta-button {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      /* Make the CTA stand out on the dark header */
+      background: var(--highlight-color);
+      color: var(--primary-color);
+      font-weight: 700;
+      transition: background 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: var(--secondary-color);
+      color: #fff;
+    }
+
+    /* Phone number styling in the header */
+    .phone-number {
+      font-weight: 600;
+      color: var(--light-bg);
+      margin-right: 1rem;
+      white-space: nowrap;
+    }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      padding: 4rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      background: url('assets/hero.jpg') center/cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin: 1rem 0;
+      font-size: 1.2rem;
+    }
+
+    .hero .hero-cta {
+      margin-top: 1.5rem;
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      background: var(--highlight-color);
+      color: var(--primary-color);
+      font-weight: 700;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background 0.2s ease;
+    }
+
+    .hero .hero-cta:hover {
+      background: var(--secondary-color);
+      color: #fff;
+    }
+
+    /* Snowfall canvas overlay */
+    #snow-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Services section */
+    .services-section {
+      /* Further reduce vertical padding for a tighter flow */
+      padding: 1rem 1rem;
+      /* Use a dark backdrop so the snowfall shows up across the whole page */
+      background: #000;
+      color: var(--light-bg);
+      position: relative;
+    }
+
+    .services-section .services-heading {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--highlight-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .services-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .service-item {
+      position: relative;
+      padding: 1.5rem 1rem;
+      /* Semi-transparent dark card so text stands out on the black backdrop */
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(3px);
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .service-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .service-item h3 {
+      margin: 0;
+      text-align: center;
+      font-size: 1.3rem;
+      color: var(--highlight-color);
+    }
+
+    .service-item .arrow {
+      position: absolute;
+      right: 1rem;
+      top: 1.2rem;
+      font-size: 1.2rem;
+      color: var(--highlight-color);
+      transition: transform 0.2s ease;
+    }
+
+    .service-item.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    .service-desc {
+      display: none;
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .service-item.active .service-desc {
+      display: block;
+    }
+
+    .services-button {
+      display: block;
+      margin: 2rem auto 0;
+      text-align: center;
+      width: fit-content;
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      background: var(--secondary-color);
+      color: #fff;
+      font-weight: 700;
+      transition: background 0.2s ease;
+    }
+
+    .services-button:hover {
+      background: var(--highlight-color);
+      color: var(--primary-color);
+    }
+
+    /* Gallery section */
+    .gallery-section {
+      /* Slightly tighter vertical spacing so sections flow into each other */
+      padding: 1rem 0;
+      /* Keep a dark backdrop for the gallery so the snowfall shows through */
+      background: #000;
+      color: var(--light-bg);
+    }
+
+    .gallery-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--highlight-color);
+    }
+
+    .gallery-slider {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0.5rem;
+      padding-left: 1rem;
+    }
+
+    .gallery-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .gallery-item {
+      position: relative;
+      /* Shrink each image further so you can see a hint of the next photo */
+      flex: 0 0 45%;
+      height: 220px;
+      scroll-snap-align: start;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Remove dark overlay on gallery items for better visibility */
+
+    /* Reviews section */
+    .reviews-section {
+      padding: 1rem 1rem;
+      background: #000;
+      text-align: center;
+      color: var(--light-bg);
+    }
+
+    .reviews-section h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--highlight-color);
+    }
+
+    .testimonial-stars {
+      margin-bottom: 1rem;
+      color: var(--highlight-color);
+      font-size: 1.4rem;
+    }
+
+    .reviews-lines {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .review-line {
+      opacity: 1;
+      animation: fadeLine 12s infinite;
+      color: var(--light-bg);
+    }
+
+    .review-line:nth-child(2) {
+      animation-delay: 4s;
+    }
+
+    .review-line:nth-child(3) {
+      animation-delay: 8s;
+    }
+
+    @keyframes fadeLine {
+      0%, 20% {
+        opacity: 1;
+      }
+      20%, 40% {
+        opacity: 0;
+      }
+      40%, 60% {
+        opacity: 1;
+      }
+      60%, 80% {
+        opacity: 0;
+      }
+      80%, 100% {
+        opacity: 1;
+      }
+    }
+
+    /* About section */
+    .about-section {
+      padding: 1rem 1rem;
+      background: #000;
+      text-align: center;
+      color: var(--light-bg);
+    }
+
+    /* Section divider: a subtle line to separate sections on the home page */
+    .section-divider {
+      width: 50%;
+      height: 2px;
+      background: var(--highlight-color);
+      margin: 1.5rem auto;
+      border-radius: 1px;
+    }
+
+    .about-section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      /* Use the highlight colour to match the other section headings */
+      color: var(--highlight-color);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-card {
+      /* Semi-transparent card to lift off dark background */
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--highlight-color);
+    }
+
+    .about-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+
+    /* What sets us apart list */
+    .about-details {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      text-align: left;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .about-details li {
+      margin-bottom: 1rem;
+      list-style: none;
+      position: relative;
+      padding-left: 1.3rem;
+    }
+
+    .about-details li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--highlight-color);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    /* Strong text in about details should use the highlight colour on the dark background */
+    .about-details strong {
+      color: var(--highlight-color);
+    }
+
+    /* Quote section */
+    .quote-section {
+      padding: 1.5rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+    }
+
+    .quote-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .quote-section p {
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      font-size: 1rem;
+    }
+
+    .quote-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .quote-form input {
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .quote-form button {
+      padding: 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--highlight-color);
+      color: var(--primary-color);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .quote-form button:hover {
+      background: var(--secondary-color);
+      color: #fff;
+    }
+
+    .call-info {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero p {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      /* Stack header elements on small screens */
+      .header-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .phone-number {
+        margin: 0;
+      }
+      .services-list {
+        width: 100%;
+      }
+      .service-item {
+        width: 100%;
+      }
+      .gallery-slider {
+        gap: 0.5rem;
+      }
+      .gallery-item {
+        flex: 0 0 80%;
+        height: 180px;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .quote-form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">Good Boy Co.</div>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="services.html">Services/Quotes</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About Us</a>
+      </nav>
+      <!-- Phone number on the right side of the header -->
+      <div class="phone-number">(346) 870‑9722</div>
+      <a href="#quote" class="cta-button">Get Quote</a>
+    </div>
+  </header>
+
+  <!-- Hero section with snowfall canvas overlay -->
+  <section id="home" class="hero">
+    <canvas id="snow-canvas" aria-hidden="true"></canvas>
+    <div class="hero-content">
+      <h1>Christmas Made Bright. Homes Made Brighter.</h1>
+      <p>Your trusted partner to light up this holiday season</p>
+      <a href="#quote" class="hero-cta">Get a Quote</a>
+    </div>
+  </section>
+
+  <!-- Services section -->
+  <section id="services" class="services-section">
+    <h2 class="services-heading">🎄 Christmas Packages 🎄</h2>
+    <div class="services-list">
+      <div class="service-item" onclick="toggleService(this)">
+        <h3>Leasing Lights</h3>
+        <span class="arrow">&#8250;</span>
+        <p class="service-desc">Enjoy professional-grade Christmas lights without long-term commitment. Each
+          season, choose new colors and patterns and let us handle installation, takedown and storage. This package is
+          perfect if you love to switch things up year after year.</p>
+      </div>
+      <div class="service-item" onclick="toggleService(this)">
+        <h3>Purchasing Lights</h3>
+        <span class="arrow">&#8250;</span>
+        <p class="service-desc">Invest in custom-fit, professional-grade lights made to last. We’ll design your
+          roofline with the colors and patterns you choose, then install, remove and store them each season. All lights
+          come with a 5-year warranty, and if we’re still installing your lights, we’ll replace anything that breaks for
+          free.</p>
+      </div>
+      <div class="service-item" onclick="toggleService(this)">
+        <h3>Install Only</h3>
+        <span class="arrow">&#8250;</span>
+        <p class="service-desc">Already have lights you love? Our team will professionally install your existing
+          lights to fit your roofline cleanly and safely, then take them down after the holidays. Need help storing
+          them? We also offer optional off-season storage for total convenience.</p>
+      </div>
+    </div>
+    <a href="services.html" class="services-button">Learn More About Our Services</a>
+  </section>
+
+  <!-- Divider between sections -->
+  <div class="section-divider"></div>
+
+  <!-- Gallery section -->
+  <section id="gallery" class="gallery-section">
+    <h2>Our Work</h2>
+    <div class="gallery-slider">
+      <!-- Repeat the three gallery images twice so scrolling feels infinite -->
+      <div class="gallery-item"><img src="assets/gallery1.png" alt="Gallery image 1" /></div>
+      <div class="gallery-item"><img src="assets/gallery2.png" alt="Gallery image 2" /></div>
+      <div class="gallery-item"><img src="assets/gallery3.png" alt="Gallery image 3" /></div>
+      <!-- Duplicate set -->
+      <div class="gallery-item"><img src="assets/gallery1.png" alt="Gallery image 1 repeat" /></div>
+      <div class="gallery-item"><img src="assets/gallery2.png" alt="Gallery image 2 repeat" /></div>
+      <div class="gallery-item"><img src="assets/gallery3.png" alt="Gallery image 3 repeat" /></div>
+    </div>
+  </section>
+
+  <!-- Divider between sections -->
+  <div class="section-divider"></div>
+
+  <!-- Reviews section -->
+  <section id="reviews" class="reviews-section">
+    <h2>What Our Customers Think</h2>
+    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="reviews-lines">
+      <div class="review-line">“Our house has never looked better. The Good Boy Co. team were friendly and made
+        the entire process stress‑free.”</div>
+      <div class="review-line">“Great quality and attention to detail! We love being able to change our colors
+        each year when we lease.”</div>
+      <div class="review-line">“Professional installation and outstanding customer service. We recommend Good Boy
+        Co. to all our neighbors.”</div>
+    </div>
+  </section>
+
+  <!-- Divider between sections -->
+  <div class="section-divider"></div>
+
+  <!-- About section -->
+  <section id="about" class="about-section">
+    <h2>About Us</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="icon">📍</div>
+        <h3>Locally Owned</h3>
+      </div>
+      <div class="about-card">
+        <div class="icon">🏠</div>
+        <h3>Family Operated</h3>
+      </div>
+      <div class="about-card">
+        <div class="icon">⭐</div>
+        <h3>High‑Quality Results</h3>
+      </div>
+    </div>
+    <ul class="about-details">
+      <li>
+        <strong>A small, family-run business with a big heart and big results.</strong>
+        We’re proud to be a locally owned company built on family values, hard work and genuine care for every
+        customer — no job is too small, and every project gets our full attention.
+      </li>
+      <li>
+        <strong>Custom, high-quality work designed specifically for your home.</strong>
+        Every installation is tailored to your space — never a one-size-fits-all approach. We focus on precision, clean
+        lines and long-lasting results that make your home shine all season long.
+      </li>
+      <li>
+        <strong>Friendly, reliable service from people who truly care.</strong>
+        From your first call to the final light, you’ll work directly with a team that listens, communicates clearly and
+        takes the time to understand exactly what you want.
+      </li>
+      <li>
+        <strong>Clear communication and honest expectations.</strong>
+        You’ll always know what to expect and when to expect it. We believe great service starts with transparency —
+        no surprises, just results you’ll love.
+      </li>
+      <li>
+        <strong>A team that’s passionate about making homes brighter, one project at a time.</strong>
+        For us, this isn’t just about hanging lights — it’s about bringing joy to neighborhoods, creating memories and
+        making every home feel special during the holidays.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Divider between sections -->
+  <div class="section-divider"></div>
+
+  <!-- Quote section -->
+  <section id="quote" class="quote-section">
+    <h2>Ready to light up your home?</h2>
+    <p>Get a free and easy quote. We’ll reach out within 24 hours.</p>
+    <form class="quote-form" onsubmit="return false;">
+      <input type="text" placeholder="Your Name" required />
+      <input type="tel" placeholder="Your Phone Number" required />
+      <button type="submit">Request Quote</button>
+    </form>
+    <div class="call-info">
+      Or text/call us at <strong>(346) 870-9722</strong>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Good Boy Co. Home Solutions. All rights reserved.
+  </footer>
+
+  <script>
+    // Service toggle function
+    function toggleService(item) {
+      item.classList.toggle('active');
+    }
+
+    // Snowfall animation on canvas
+    (function() {
+      const canvas = document.getElementById('snow-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const snowflakes = [];
+
+      function init() {
+        resize();
+        for (let i = 0; i < 100; i++) {
+          snowflakes.push(new Snowflake());
+        }
+        requestAnimationFrame(update);
+      }
+
+      function resize() {
+        // Use viewport dimensions for snowfall so it covers the entire visible area
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      class Snowflake {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * -height;
+          this.radius = Math.random() * 2 + 1;
+          this.speedY = Math.random() * 1 + 0.5;
+          this.speedX = Math.random() * 0.5 - 0.25;
+        }
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX;
+          if (this.y > height) {
+            this.reset();
+            this.y = 0;
+          }
+          if (this.x > width) {
+            this.x = 0;
+          }
+          if (this.x < 0) {
+            this.x = width;
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, width, height);
+        snowflakes.forEach((snowflake) => {
+          snowflake.update();
+          snowflake.draw();
+        });
+        requestAnimationFrame(update);
+      }
+      window.addEventListener('resize', resize);
+      init();
+    })();
+
+    // Gallery auto scroll function
+    (function() {
+      const slider = document.querySelector('.gallery-slider');
+      if (!slider) return;
+      let index = 0;
+      function scrollNext() {
+        index = (index + 1) % slider.children.length;
+        const nextItem = slider.children[index];
+        if (nextItem) {
+          slider.scrollTo({ left: nextItem.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
+        }
+      }
+      setInterval(scrollNext, 6000);
+    })();
+  </script>
+</body>
+</html>
